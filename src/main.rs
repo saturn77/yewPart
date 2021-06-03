@@ -3,7 +3,7 @@
 use js_sys::Date;
 use yew::{html, Component, ComponentLink, Html, ShouldRender};
 mod capacitor; 
-use capacitor::{Dielectric};
+
 // #[derive(Debug)]
 // struct State {
 //     allow_x5: bool,
@@ -24,56 +24,34 @@ pub enum Msg {
     P2,
     P10,
     P20,
+    ClearText,
 }
 
 #[allow(non_snake_case)]
 pub struct State{
-    dielectric : capacitor::Dielectric, 
-    flag_85  : bool,
-    flag_105 : bool,
-    flag_125 : bool,
-    flag_150 : bool, 
-    flag_P1  : bool,
-    flag_P2  : bool,  
-    flag_P10 : bool,
-    flag_P20 : bool,
+    dielectric  : capacitor::Dielectric, 
+    temperature : capacitor::Temperature, 
+    tolerance   : capacitor::Percent,
 }
 
 #[allow(non_snake_case)]
 pub struct Model {
     link: ComponentLink<Self>,
     state    : State,
-    // flag_125 : bool,
-    // flag_150 : bool, 
-    // flag_X5R : bool,
-    // flag_X6S : bool,
-    // flag_X7R : bool,
-    // flag_X8R : bool,
     text     : String, 
     cap_string : String,
-    //state    : State,
 }
 
 impl Component for Model {
     type Message = Msg;
     type Properties = ();
 
-    
-
     fn create(_props: Self::Properties, link: ComponentLink<Self>) -> Self {
-
         let state = State {
             dielectric : capacitor::Dielectric::new(),
-            flag_85  : false,
-            flag_105 : false,
-            flag_125: false,
-            flag_150 : false,
-            flag_P1  : false, 
-            flag_P2  : false, 
-            flag_P10 : false,
-            flag_P20 : false,
+            temperature : capacitor::Temperature::new(),
+            tolerance   : capacitor::Percent::new(),
         };
-
         Self {
             link , 
             state,
@@ -87,21 +65,21 @@ impl Component for Model {
         match msg {
 
             Msg::Temp85 => {
-                self.state.flag_85 = !self.state.flag_85;
+                self.state.temperature.t85 = !self.state.temperature.t85; 
                 true 
             }
 
             Msg::Temp105 => {
-                self.state.flag_105 = !self.state.flag_105;
+                self.state.temperature.t105 = !self.state.temperature.t105;
                 true 
             }
 
             Msg::Temp125 => {
-                self.state.flag_125 = !self.state.flag_125;
+                self.state.temperature.t125 = !self.state.temperature.t125;
                 true 
             }
             Msg::Temp150 => {
-                self.state.flag_150 = !self.state.flag_150;
+                self.state.temperature.t150 = !self.state.temperature.t150;
                 true 
             }
 
@@ -114,6 +92,7 @@ impl Component for Model {
                 self.state.dielectric.x6 = !self.state.dielectric.x6; 
                 true 
             }
+
             Msg::X7R => {
                 self.state.dielectric.x7 = !self.state.dielectric.x7;
                 if self.state.dielectric.x7 {
@@ -122,6 +101,7 @@ impl Component for Model {
                 } 
                 true
             }
+
             Msg::X8R => {
                 self.state.dielectric.x8 = !self.state.dielectric.x8;
                 if self.state.dielectric.x8 == true {
@@ -132,8 +112,8 @@ impl Component for Model {
             }
 
             Msg::P1 => {
-                self.state.flag_P1 = !self.state.flag_P1;
-                if self.state.flag_P1 {
+                self.state.tolerance.p1 = !self.state.tolerance.p1;
+                if self.state.tolerance.p1 {
                     self.text = " ".to_string();
                     self.text += "\n Selected 1% Tolerance\r\n";
                 } 
@@ -141,8 +121,8 @@ impl Component for Model {
             }
 
             Msg::P2 => {
-                self.state.flag_P2 = !self.state.flag_P2;
-                if self.state.flag_P2 {
+                self.state.tolerance.p2 = !self.state.tolerance.p2;
+                if self.state.tolerance.p2 {
                     self.text = " ".to_string();
                     self.text += "\n Selected 2% Tolerance\r\n";
                 } 
@@ -150,8 +130,8 @@ impl Component for Model {
             }
 
             Msg::P10 => {
-                self.state.flag_P10 = !self.state.flag_P10;
-                if self.state.flag_P10 == true {
+                self.state.tolerance.p10 = !self.state.tolerance.p10;
+                if self.state.tolerance.p10 == true {
                     self.text = " ".to_string();
                     self.text += "\r\n Selected 10% Tolerance\r\n";
                 } 
@@ -159,11 +139,19 @@ impl Component for Model {
             }
 
             Msg::P20 => {
-                self.state.flag_P20 = !self.state.flag_P20;
-                if self.state.flag_P20 == true {
+                self.state.tolerance.p20 = !self.state.tolerance.p20;
+                if self.state.tolerance.p20 == true {
                     self.text = " ".to_string();
                     self.text += "\n Selected 20% Tolerance\r\n";
                 } 
+                true 
+            }
+
+            Msg::ClearText => {
+                self.text = " ".to_string(); 
+                self.state.dielectric.clear();
+                self.state.temperature.clear();
+                self.state.tolerance.clear();
                 true 
             }
 
@@ -176,23 +164,12 @@ impl Component for Model {
 
     #[allow(non_snake_case)]
     fn view(&self) -> Html {
-
-        // let flag_125 = self.flag_125;
-        // let flag_150 = self.flag_150;
-        // let flag_X5R = self.flag_X5R; 
-        // let flag_X6S = self.flag_X6S;
-        // let flag_X7R = self.flag_X7R;
-        // let flag_X8R = self.flag_X8R;
         let textbox  = &self.text; 
         let cap_stringX = &self.cap_string; 
 
         html! {
-
-            
             <div>
-            
                 <br/>
-                
                 <br/>
                 <div class="page-title"> <text>{"AtlantixEDA AlphaPart"}</text> </div>
                 <div class="page-title"> <text>{"Providing Intelligence Based Part Search Results"}</text> </div>
@@ -203,6 +180,7 @@ impl Component for Model {
                     <div class="editor2" contenteditable="true">
                         <text> {cap_stringX} </text>
                     </div>
+                    
                     </div>
                     <img src="cap_zynq.png" class="display-image" style="width:300px;height:200px;justify-content: center;padding:10px 0px 10px 30px" />
                 </div>
@@ -216,19 +194,19 @@ impl Component for Model {
                         <div class="grid-item"><text>{ "Filter Details" }</text></div>
 
                         <div class="grid-item"><text>{ "85 C" }</text></div>
-                        <div class="grid-item"><input type="checkbox"  checked=self.state.flag_85 onclick=self.link.callback(|_| Msg::Temp85) /></div>
+                        <div class="grid-item"><input type="checkbox"  checked=self.state.temperature.t85 onclick=self.link.callback(|_| Msg::Temp85) /></div>
                         <div class="grid-item"><text>{ "Allow 85C parts." }</text></div>
 
                         <div class="grid-item"><text>{ "105 C" }</text></div>
-                        <div class="grid-item"><input type="checkbox"  checked=self.state.flag_105 onclick=self.link.callback(|_| Msg::Temp105) /></div>
+                        <div class="grid-item"><input type="checkbox"  checked=self.state.temperature.t105 onclick=self.link.callback(|_| Msg::Temp105) /></div>
                         <div class="grid-item"><text>{ "Allow 105C parts" }</text></div>
 
                         <div class="grid-item"><text>{ "125 C" }</text></div>
-                        <div class="grid-item"><input type="checkbox"  checked=self.state.flag_125 onclick=self.link.callback(|_| Msg::Temp125) /></div>
+                        <div class="grid-item"><input type="checkbox"  checked=self.state.temperature.t125 onclick=self.link.callback(|_| Msg::Temp125) /></div>
                         <div class="grid-item"><text>{ "Allow 125C parts" }</text></div>
                         
                         <div class="grid-item"><text>{ "150 C" }</text></div>
-                        <div class="grid-item"><input type="checkbox"  checked=self.state.flag_150 onclick=self.link.callback(|_| Msg::Temp150) /></div>
+                        <div class="grid-item"><input type="checkbox"  checked=self.state.temperature.t150 onclick=self.link.callback(|_| Msg::Temp150) /></div>
                         <div class="grid-item"><text>{ "Allow 150C parts." }</text></div>
                     </div>
 
@@ -260,19 +238,19 @@ impl Component for Model {
                         <div class="grid-item"><text>{ "Filter Details" }</text></div>
                         
                         <div class="grid-item"><text>{ "1% Family" }</text></div>
-                        <div class="grid-item"><input type="checkbox"  checked=self.state.flag_P1 onclick=self.link.callback(|_| Msg::P1) /></div>
+                        <div class="grid-item"><input type="checkbox"  checked=self.state.tolerance.p1 onclick=self.link.callback(|_| Msg::P1) /></div>
                         <div class="grid-item"><text>{ "Allow 1% change(COG)." }</text></div>
 
                         <div class="grid-item"><text>{ "10% Family" }</text></div>
-                        <div class="grid-item"><input type="checkbox"  checked=self.state.flag_P2 onclick=self.link.callback(|_| Msg::P2) /></div>
+                        <div class="grid-item"><input type="checkbox"  checked=self.state.tolerance.p2  onclick=self.link.callback(|_| Msg::P2) /></div>
                         <div class="grid-item"><text>{ "Allow 2% change." }</text></div>
 
                         <div class="grid-item"><text>{ "10% Family" }</text></div>
-                        <div class="grid-item"><input type="checkbox"  checked=self.state.flag_P10 onclick=self.link.callback(|_| Msg::P10) /></div>
+                        <div class="grid-item"><input type="checkbox"  checked=self.state.tolerance.p10 onclick=self.link.callback(|_| Msg::P10) /></div>
                         <div class="grid-item"><text>{ "Allow 10% change." }</text></div>
 
                         <div class="grid-item"><text>{ "20% Family" }</text></div>
-                        <div class="grid-item"><input type="checkbox"  checked=self.state.flag_P20 onclick=self.link.callback(|_| Msg::P20) /></div>
+                        <div class="grid-item"><input type="checkbox"  checked=self.state.tolerance.p20 onclick=self.link.callback(|_| Msg::P20) /></div>
                         <div class="grid-item"><text>{ "Allow 20% change." }</text></div>
                         
                     </div>
@@ -283,10 +261,12 @@ impl Component for Model {
                     { String::from(Date::new_0().to_string()) }
                 </p>
             
-                <div class="editor1" contenteditable="true">
-                <text>    {textbox} </text>
+                <div class="grid-title-area">
+                    <button class="button" style="width:140px;height:40px;justify-content: right;padding:10px 0px 10px 30px" onclick=self.link.callback(|_| Msg::ClearText)> { "Clear Filters" } </button> 
+                    <div class="editor1" contenteditable="true"><text>{textbox}</text></div>
+                    <div class="commentX"><text>{""}</text></div>
                 </div>
-            </div>
+        </div>
                 
         }
     }

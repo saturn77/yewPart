@@ -1,5 +1,7 @@
 # yewPart
-Automating electrical engineering hardware design, providing intelligence to the process of Search and Design.
+An intelligent search engine for electronic components and circuit design featuring Rust, Yew, and WASM. 
+
+**yewPart** automates electrical engineering hardware design, providing intelligence to the process of Search and Design.
 
 The process of selecting components when designing circuits and printed circuit boards can be quite involved. Typically capacitors offer a wide range of choices, and are often the part of the Bill of Material that hardware designers spend the most time with. Alpha Part addresses these issues by providing a mechanicsm for:
 

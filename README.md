@@ -3,14 +3,9 @@ Automating electrical engineering hardware design, providing intelligence to the
 
 The process of selecting components when designing circuits and printed circuit boards can be quite involved. Typically capacitors offer a wide range of choices. Capacitors can also be problematic from a reliability point of view. Alpha Part addresses these issues by providing a mechanicsm for:
 
-Generic search, for example, 100 pF 0402 16V
-Async requests to Octopart API
-Intelligent filters for the JSON responses from the Generic search
-## Rust and Async
-Rust is empolyed as the ability to use async and Tokio are quite valuable for asynchronous handling of multiple part requests. Rust was chosen for it's type and memory safety, robust package management, and libraries such as async, futures, reqwest, and Tokio. Async and tokio will allow for spawing multiple requests to the Octopart API endpoint and reducing the overall search time for a long list of parts to search.
-
-Rust is the preferred language in the Altantix::EDA intitiave.
-
+-- Generic search, for example, 100 pF 0402 16V
+-- Async requests to Octopart API
+-- Intelligent filters for the JSON responses from the Generic search
 ## Yew and WASM
 Traditionally I have developed GUI's with Qt and Python or C++. While Qt has a long legacy and is quite powerful, the WASM environment is compelling. For example, a WASM file is easy to distribute to a large audience of users via a simple web server (say Actix or Rocket, or something like Flask) and thus provides wide user access. Alternatively, the WASM program can be run locally on localhost.
 

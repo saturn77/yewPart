@@ -3,17 +3,17 @@
 
     #[derive(Debug)]
     pub struct Dielectric {
-        pub x5 : bool,
-        pub x6 : bool,
-        pub x7 : bool,
-        pub x8 : bool,
+        pub x5  : bool,
+        pub x6  : bool,
+        pub x7  : bool,
+        pub x8  : bool,
         pub cog : bool,
     }
     
     impl Dielectric {
         pub fn new() -> Dielectric {
             Dielectric {
-                x5 : false,
+                x5  : false,
                 x6  : false,
                 x7  : false, 
                 x8  : false, 
@@ -70,8 +70,8 @@
         pub fn new() -> Percent {
             Percent {
                 p1  : false,
-                p2 : false,
-                p5 : false, 
+                p2  : false,
+                p5  : false, 
                 p10 : false,
                 p20 : false,  
             }

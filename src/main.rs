@@ -57,23 +57,18 @@ impl Component for Model {
             state,
             text     :  "".to_string(),
             cap_string : "100pF 0402 16V".to_string(),
-        
         }
     }
-
     fn update(&mut self, msg: Self::Message) -> ShouldRender {
         match msg {
-
             Msg::Temp85 => {
                 self.state.temperature.t85 = !self.state.temperature.t85; 
                 true 
             }
-
             Msg::Temp105 => {
                 self.state.temperature.t105 = !self.state.temperature.t105;
                 true 
             }
-
             Msg::Temp125 => {
                 self.state.temperature.t125 = !self.state.temperature.t125;
                 true 
@@ -82,17 +77,14 @@ impl Component for Model {
                 self.state.temperature.t150 = !self.state.temperature.t150;
                 true 
             }
-
             Msg::X5R => {
                 self.state.dielectric.x5 = !self.state.dielectric.x5; 
                 true 
             }
-
             Msg::X6S => {
                 self.state.dielectric.x6 = !self.state.dielectric.x6; 
                 true 
             }
-
             Msg::X7R => {
                 self.state.dielectric.x7 = !self.state.dielectric.x7;
                 if self.state.dielectric.x7 {
@@ -101,7 +93,6 @@ impl Component for Model {
                 } 
                 true
             }
-
             Msg::X8R => {
                 self.state.dielectric.x8 = !self.state.dielectric.x8;
                 if self.state.dielectric.x8 == true {
@@ -110,7 +101,6 @@ impl Component for Model {
                 } 
                 true 
             }
-
             Msg::P1 => {
                 self.state.tolerance.p1 = !self.state.tolerance.p1;
                 if self.state.tolerance.p1 {
@@ -119,7 +109,6 @@ impl Component for Model {
                 } 
                 true 
             }
-
             Msg::P2 => {
                 self.state.tolerance.p2 = !self.state.tolerance.p2;
                 if self.state.tolerance.p2 {
@@ -128,7 +117,6 @@ impl Component for Model {
                 } 
                 true 
             }
-
             Msg::P10 => {
                 self.state.tolerance.p10 = !self.state.tolerance.p10;
                 if self.state.tolerance.p10 == true {
@@ -137,7 +125,6 @@ impl Component for Model {
                 } 
                 true 
             }
-
             Msg::P20 => {
                 self.state.tolerance.p20 = !self.state.tolerance.p20;
                 if self.state.tolerance.p20 == true {
@@ -146,7 +133,6 @@ impl Component for Model {
                 } 
                 true 
             }
-
             Msg::ClearText => {
                 self.text = " ".to_string(); 
                 self.state.dielectric.clear();
@@ -154,7 +140,6 @@ impl Component for Model {
                 self.state.tolerance.clear();
                 true 
             }
-
         }
     }
 
@@ -180,6 +165,14 @@ impl Component for Model {
                     <div class="editor2" contenteditable="true">
                         <text> {cap_stringX} </text>
                     </div>
+                    <label>{ "Low Cost Search" }</label> 
+                    <input type="checkbox"  checked=self.state.temperature.t105 onclick=self.link.callback(|_| Msg::Temp105) />
+                    <br/>
+                    <label>{ "Nominal Search" }</label> 
+                    <input type="checkbox"  checked=self.state.temperature.t125 onclick=self.link.callback(|_| Msg::Temp125) />
+                    <br/>
+                    <label>{ "High Reliability" }</label> 
+                    <input type="checkbox"  checked=self.state.temperature.t150 onclick=self.link.callback(|_| Msg::Temp150) />
                     
                     </div>
                     <img src="cap_zynq.png" class="display-image" style="width:300px;height:200px;justify-content: center;padding:10px 0px 10px 30px" />
@@ -241,7 +234,7 @@ impl Component for Model {
                         <div class="grid-item"><input type="checkbox"  checked=self.state.tolerance.p1 onclick=self.link.callback(|_| Msg::P1) /></div>
                         <div class="grid-item"><text>{ "Allow 1% change(COG)." }</text></div>
 
-                        <div class="grid-item"><text>{ "10% Family" }</text></div>
+                        <div class="grid-item"><text>{ "2% Family" }</text></div>
                         <div class="grid-item"><input type="checkbox"  checked=self.state.tolerance.p2  onclick=self.link.callback(|_| Msg::P2) /></div>
                         <div class="grid-item"><text>{ "Allow 2% change." }</text></div>
 
@@ -255,7 +248,6 @@ impl Component for Model {
                         
                     </div>
                 </div>
-                // Display the current date and time the page was rendered
                 <p class="footer">
                     { "Rendered: "}
                     { String::from(Date::new_0().to_string()) }

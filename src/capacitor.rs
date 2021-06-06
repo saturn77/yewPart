@@ -21,7 +21,7 @@
             }
         }
     
-        pub fn clear(&mut self)  {
+        pub fn clear(&mut self)   {
             self.x5  = false; 
             self.x6  = false;
             self.x7  = false;

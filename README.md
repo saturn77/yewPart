@@ -37,11 +37,10 @@ cd yewPart
 trunk serve --release
 ```
 ## Program Use
-Using **yewPart** is relatively simple. First, enter a generic search string for a capacitor, which must only include capacitance, package, and minimum voltage.
-
-Then apply filters. Select pre-defined filters of low cost, nominal, or high reliability  as a starting point and then adjust any of the specific filters once doing this. Alternatively just select the filters that you want manually. 
+Using **yewPart** is relatively simple. First, enter a generic search string for a capacitor, which must only include capacitance, package, and minimum voltage. Then apply filters, starting with a pre-defined filters and modify that filter according to your preferences, or just select the filters that you want manually. 
 
 <img src="media/yewPart2.gif">
+
 ## Search Filters
 
 There are three general search filter categories.
@@ -52,7 +51,35 @@ There are three general search filter categories.
 
 3. *Tolerance* (for example, if you choose 10% tolerance, then only parts with 10% will appear)
 
-Some predefined filters are provided, for example, the check button that says "High Reliability" will search with filters of 125C, 150C, X7, X8, COG, and all tolerances enabled. The radio button that says "Low Cost" will search with filters of 85C, X5, and 10% and 20% enabled.
+Some predefined filters are provided. For example, "High Reliability" will search with filters of 125C, 150C, X7, X8, and 10%,20% tolerances. The "Low Cost" filter will select 85C, 105C, X5, X6, and 10% and 20% enabled.
+
+The MSG handling of the checkboxes to select the temperature, dielectric, and percent filters for the case of LowCost is shown below:
+
+```rust
+            Msg::LowCost => {
+                if !self.state.low_cost {
+                  self.text = " ".to_string();
+                  self.text = "Low Cost search selected.".to_string();  
+                  self.state.dielectric.clear();
+                  self.state.temperature.clear();
+                  self.state.tolerance.clear();
+                  self.state.temperature.t85  = true;
+                  self.state.temperature.t105 = true; 
+                  self.state.dielectric.x5    = true;
+                  self.state.dielectric.x6    = true;
+                  self.state.tolerance.p10    = true;
+                  self.state.tolerance.p20    = true; 
+                  self.state.nominal          = false;
+                  self.state.high_rel         = false;
+                  self.state.low_cost         = true; 
+                } else {
+                    self.text = " ".to_string();
+                    self.text = "Low Cost search removed.".to_string();
+                    self.state.low_cost        = false;  
+                }
+                true 
+            }
+```
 ## Rust with Yew and WASM
 The Yew framework is inspired by Elm and React and overall I find that it is of reasonable complexity to work with and is rapidly maturing. Basically it is new and is suggested for internal tooling and development, and is not quite production ready. However, it seems reasonable to develop with it now seeing that it's trajectory will be one of a robust framework in the years to come. Yew has a standard type of Traits that operate on a data struct to creat the GUI - these being
 

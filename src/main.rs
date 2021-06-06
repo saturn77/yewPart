@@ -153,18 +153,29 @@ impl Component for Model {
                 true 
             }
             Msg::LowCost => {
-                self.text = " ".to_string();
-                self.text = "Low Cost search selected.".to_string();  
-                self.state.dielectric.clear();
-                self.state.temperature.clear();
-                self.state.tolerance.clear();
-                self.state.temperature.t85 = true; 
-                self.state.dielectric.x5   = true;
-                self.state.tolerance.p10   = true;
-                self.state.tolerance.p20   = true; 
-                self.state.nominal         = false;
-                self.state.high_rel        = false;
-                self.state.low_cost        = !self.state.low_cost; 
+                if !self.state.low_cost {
+                  self.text = " ".to_string();
+                  self.text = "Low Cost search selected.".to_string();  
+                  self.state.dielectric.clear();
+                  self.state.temperature.clear();
+                  self.state.tolerance.clear();
+                  self.state.temperature.t85  = true;
+                  self.state.temperature.t105 = true; 
+                  self.state.dielectric.x5    = true;
+                  self.state.dielectric.x6    = true;
+                  self.state.tolerance.p10    = true;
+                  self.state.tolerance.p20    = true; 
+                  self.state.nominal          = false;
+                  self.state.high_rel         = false;
+                  self.state.low_cost         = true; 
+                } else {
+                    self.state.dielectric.clear();
+                    self.state.temperature.clear();
+                    self.state.tolerance.clear();
+                    self.text = " ".to_string();
+                    self.text = "Low Cost search removed.".to_string();
+                    self.state.low_cost        = false;  
+                }
                 true 
             }
 
@@ -218,8 +229,8 @@ impl Component for Model {
             <div>
                 <br/>
                 <br/>
-                <div class="page-title"> <text>{"AtlantixEDA AlphaPart"}</text> </div>
-                <div class="page-title"> <text>{"Providing Intelligence Based Part Search Results"}</text> </div>
+                <div class="page-title"> <text>{"yewPart"}</text> </div>
+                <div class="page-title"> <text>{"Integrating circuit design with software for design optimization"}</text> </div>
                 <br/>
                 <div class="grid-title-area">
                     <img src="/assets/cap.png" class="display-image" style="width:300px;height:200px;justify-content: center;padding:10px 0px 10px 30px" />

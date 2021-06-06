@@ -25,10 +25,16 @@ pub enum Msg {
     P10,
     P20,
     ClearText,
+    LowCost,
+    Nominal,
+    HighRel,
 }
 
 #[allow(non_snake_case)]
 pub struct State{
+    low_cost    : bool, 
+    nominal     : bool, 
+    high_rel    : bool, 
     dielectric  : capacitor::Dielectric, 
     temperature : capacitor::Temperature, 
     tolerance   : capacitor::Percent,
@@ -48,6 +54,9 @@ impl Component for Model {
 
     fn create(_props: Self::Properties, link: ComponentLink<Self>) -> Self {
         let state = State {
+            low_cost   : false, 
+            nominal    : false, 
+            high_rel   : false, 
             dielectric : capacitor::Dielectric::new(),
             temperature : capacitor::Temperature::new(),
             tolerance   : capacitor::Percent::new(),
@@ -138,6 +147,59 @@ impl Component for Model {
                 self.state.dielectric.clear();
                 self.state.temperature.clear();
                 self.state.tolerance.clear();
+                self.state.low_cost = false;
+                self.state.nominal  = false;
+                self.state.high_rel = false;
+                true 
+            }
+            Msg::LowCost => {
+                self.text = " ".to_string();
+                self.text = "Low Cost search selected.".to_string();  
+                self.state.dielectric.clear();
+                self.state.temperature.clear();
+                self.state.tolerance.clear();
+                self.state.temperature.t85 = true; 
+                self.state.dielectric.x5   = true;
+                self.state.tolerance.p10   = true;
+                self.state.tolerance.p20   = true; 
+                self.state.nominal         = false;
+                self.state.high_rel        = false;
+                self.state.low_cost        = !self.state.low_cost; 
+                true 
+            }
+
+            Msg::Nominal => {
+                self.text = " ".to_string();
+                self.text = "Nominal search selected.".to_string(); 
+                self.state.dielectric.clear();
+                self.state.temperature.clear();
+                self.state.tolerance.clear();
+                self.state.temperature.t105 = true;
+                self.state.temperature.t125 = true;  
+                self.state.dielectric.x6   = true;
+                self.state.dielectric.x7   = true; 
+                self.state.tolerance.p10   = true;
+                self.state.tolerance.p20   = true; 
+                self.state.low_cost        = false; 
+                self.state.high_rel        = false; 
+                self.state.nominal         = !self.state.nominal; 
+                true 
+            }
+
+            Msg::HighRel => {
+                self.text = " ".to_string();
+                self.text = "High Reliability search selected.".to_string();  
+                self.state.dielectric.clear();
+                self.state.temperature.clear();
+                self.state.tolerance.clear();
+                self.state.temperature.t125 = true;
+                self.state.temperature.t150 = true;  
+                self.state.dielectric.x7   = true;
+                self.state.dielectric.x8   = true; 
+                self.state.tolerance.p10   = true;
+                self.state.low_cost        = false;
+                self.state.nominal         = false;
+                self.state.high_rel        = !self.state.high_rel; 
                 true 
             }
         }
@@ -160,22 +222,25 @@ impl Component for Model {
                 <div class="page-title"> <text>{"Providing Intelligence Based Part Search Results"}</text> </div>
                 <br/>
                 <div class="grid-title-area">
-                    <img src="cap.png" class="display-image" style="width:300px;height:200px;justify-content: center;padding:10px 0px 10px 30px" />
+                    <img src="/assets/cap.png" class="display-image" style="width:300px;height:200px;justify-content: center;padding:10px 0px 10px 30px" />
                     <div class="page-search"> <text>{"Capacitor String:"}</text> 
                     <div class="editor2" contenteditable="true">
                         <text> {cap_stringX} </text>
                     </div>
-                    <label>{ "Low Cost Search" }</label> 
-                    <input type="checkbox"  checked=self.state.temperature.t105 onclick=self.link.callback(|_| Msg::Temp105) />
                     <br/>
-                    <label>{ "Nominal Search" }</label> 
-                    <input type="checkbox"  checked=self.state.temperature.t125 onclick=self.link.callback(|_| Msg::Temp125) />
-                    <br/>
-                    <label>{ "High Reliability" }</label> 
-                    <input type="checkbox"  checked=self.state.temperature.t150 onclick=self.link.callback(|_| Msg::Temp150) />
+                    <div class="grid-micro">
+                    <div class="grid-item"><text>{ "Low Cost Search" }</text></div>
+                    <div class="grid-item"><input type="checkbox"  checked=self.state.low_cost onclick=self.link.callback(|_| Msg::LowCost) /></div>
+
+                    <div class="grid-item"><text>{ "Nominal" }</text></div>
+                    <div class="grid-item"><input type="checkbox"  checked=self.state.nominal onclick=self.link.callback(|_| Msg::Nominal) /></div>
+
+                    <div class="grid-item"><text>{ "High Reliability" }</text></div>
+                    <div class="grid-item"><input type="checkbox"  checked=self.state.high_rel onclick=self.link.callback(|_| Msg::HighRel) /></div>
+                    </div>
                     
                     </div>
-                    <img src="cap_zynq.png" class="display-image" style="width:300px;height:200px;justify-content: center;padding:10px 0px 10px 30px" />
+                    <img src="/assets/cap_zynq.png" class="display-image" style="width:300px;height:200px;justify-content: center;padding:10px 0px 10px 30px" />
                 </div>
                 <br/>
                 <br/>

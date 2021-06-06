@@ -2,21 +2,6 @@ body {
   background-color: rgb(46, 44, 44);
   color: white;
 }
-// @media screen and (prefers-color-scheme: light) {
-//   body {
-//     background-color: white;
-//     color: rgb(46, 44, 44);
-//   }
-//}
-
-.grid-container {
-  display: grid;
-  grid-template-rows: 350px 350px 350px;
-  grid-template-columns: 250px;
-  gap: 1px 1px;
-  justify-content: center;
-
-}
 
 .center {
   margin: 0;
@@ -38,12 +23,9 @@ body {
   width: 70px;
   height: 10px;
   position: relative;
-    left: 55%;
-
-
+  left: 55%;
 }
 
-/* Larger Side Border */
 .text-area {
 	width: 230px;
 	height:60px;
@@ -51,7 +33,6 @@ body {
 	border:1px solid #3366FF;
 	border-left: 4px solid #3366FF;
   background-color: rgb(46, 44, 44);
-  //color:#66b94d
 }
 
 .line-edit {
@@ -62,7 +43,6 @@ body {
   padding:10px;
   position:fixed; 
  }
-
 
  .editor2 {
   border: 1px solid grey;
@@ -120,7 +100,24 @@ body {
   border: 0.5px solid rgba(12, 123, 214, 0.349);
 }
 
-​
+
+.grid-micro {
+  display: grid;
+  grid-template-columns: 200px 50px;
+  grid-template-rows: auto;
+
+  font-display: rgb(22, 209, 22);
+
+  box-sizing: border-box;
+  width: 250px;
+  height: 80px;
+  margin-left: auto;
+  margin-right: auto;
+
+  background: rgba(114, 186, 94, 0.05);
+  border: 0.5px solid rgba(12, 123, 214, 0.349);
+}
+
 .display-image {
   align-self:center;
   display: block;

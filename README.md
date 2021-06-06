@@ -53,7 +53,7 @@ Then apply filters. Select pre-defined filters of low cost, nominal, or high rel
 
 For example, 1uF 0805 25V. Second, apply filters filters for the preferred search :
 
-<img src="assets/yewPart2.gif">
+<img src="media/yewPart2.gif">
 
 
 

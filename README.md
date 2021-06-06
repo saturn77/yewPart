@@ -1,19 +1,19 @@
 # yewPart
-An intelligent search engine for electronic components and circuit design featuring Rust, Yew, and WASM. 
+*Electronic component design optimization built with Rust, Yew, and WASM.*
 
-**yewPart** automates electrical engineering hardware design, providing intelligence to the process of Search and Design.
+ **yewPart** *integrates* engineering know-how of circuit design with a software based search and filtering algorithm. 
 
-The process of selecting components when designing circuits and printed circuit boards can be quite involved. Typically parts are designed in a circuit, and then component availability is researched. The purpose of yewPart is to allow for intelligent searching of components as part of the design process, essentially merging the selection and design process together. 
+The process of selecting components when designing circuits and printed circuit boards can be quite involved. Typically parts are designed in a circuit, and then component availability is researched. 
 
-The other way of looking at **yewPart** is that the engineering know-how of selecting a part for a design is *infused* into yewPart, allowing the engineer's decision making capability part of the algorithm. The decision making is infused via *selection filters* which are applied after an async http request for the part's information is retrieved. This is done by accessing the Octopart API via Json/GraphQL. 
+The purpose of yewPart is to allow for intelligent searching of components as part of the design process, essentially merging the selection and design process together. The decision making is infused via *selection filters* which are applied after an async http request for the part's information is retrieved. This is done by accessing the Octopart API via Json/GraphQL. 
 
-Currently, **yewPart** supports capacitors, while other components such as inductors and various semiconductors are also in development. Capacitors offer a wide range of choices, and are often the part of the Bill of Material that hardware designers spend the most time with. **yewPart** addresses these issues by providing a mechanicsm for:
+Currently, **yewPart** supports capacitors. There are other components such as inductors and various semiconductors in development. Capacitors offer a wide range of choices. They are often the part of the Bill of Material that hardware designers spend the most time with. **yewPart** optimizes the circuit design of capacitors by providing:
 
-- Generic search, for example, 100 pF 0402 16V
+- Generic search, feating capacitance, package, and voltage such as 100 pF 0402 16V
 
-- Async requests to Octopart API
-
-- Intelligent filters for the JSON responses from the Generic search
+- Relevant filters based on engineering properties of temperature, dielectric, and tolerance
+  
+- Capacitor result best fitting selection filters for the generic search
 
 To run the program, simply use 
 

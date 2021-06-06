@@ -85,8 +85,7 @@ The update and change methods somewhat overall in functionality, but if you want
 
 The Yew enumerated Msg:: framework is analogous to Qt's signals where an event occurs and triggers a signal, or in the case of Yew, a Message. Yew specifies the use of enumerated types (Rust algebraic data types) to handle these messages.
 
-<<<<<<< HEAD
-=======
+
 ## Search Mechanism and Program Use
 Using **yewPart** is relatively simple. First, enter a generic search string for a capacitor, which must only include capacitance, package, and minimum voltage. For example, 1uF 0805 25V. Second, apply filters filters for the preferred search :
 
@@ -99,4 +98,4 @@ Using **yewPart** is relatively simple. First, enter a generic search string for
 ## Pre-defined Filters
 
 Some predefined filters are provided, for example, the check button that says "High Reliability" will search with filters of 125C, 150C, X7, X8, COG, and all tolerances enabled. The radio button that says "Low Cost" will search with filters of 85C, X5, and 10% and 20% enabled.
->>>>>>> 843e14172aa45a77cfc847e95a809202aadab313
+

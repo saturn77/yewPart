@@ -1,16 +1,17 @@
 #![recursion_limit="2048"]
 
 use js_sys::Date;
-use yew::{html, Component, ComponentLink, Html, ShouldRender};
-mod capacitor; 
 
-// #[derive(Debug)]
-// struct State {
-//     allow_x5: bool,
-//     allow_x6: bool,
-//     allow_x7: bool,
-// }
-// Define the possible messages which can be sent to the component
+use wasm_bindgen::prelude::*;
+use wasm_bindgen::JsCast;
+use wasm_bindgen_futures::JsFuture;
+use yew::web_sys::{Request, RequestInit, RequestMode, Response};
+use yew::{html, Component, ComponentLink, Html, ShouldRender};
+use yewtil::future::LinkFuture;
+
+mod capacitor;
+
+// Define the possible message signals 
 pub enum Msg {
     Temp85,
     Temp105,

@@ -53,7 +53,8 @@ There are three general search filter categories.
 
 Some predefined filters are provided. For example, "High Reliability" will search with filters of 125C, 150C, X7, X8, and 10%,20% tolerances. The "Low Cost" filter will select 85C, 105C, X5, X6, and 10% and 20% enabled.
 
-The MSG handling of the checkboxes to select the temperature, dielectric, and percent filters for the case of LowCost is shown below:
+The MSG handling of the checkboxes to select the temperature, dielectric, and percent filters for the case of LowCost is shown below. This example is shownn to illustrate the ease with one can easily adjust the filter properties.
+
 
 ```rust
             Msg::LowCost => {

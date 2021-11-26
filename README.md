@@ -15,6 +15,10 @@ Currently, **yewPart** supports capacitors. There are other components such as i
   
 - Capacitor result best fitting selection filters for the generic search
 
+Currently, the program does *not* return any results. The backend code is in another repository and is built with reqwest module. 
+However, the front end code as shown is a minimum viable product for the front end design of the product. In terms of a demo, 
+this code exposes how to compose a Yew design with multiple inputs and a terminal like window that provides feedback. 
+
 ## How to run
 
 The examples are built with [trunk](https://github.com/thedodd/trunk).

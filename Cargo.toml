@@ -1,0 +1,15 @@
+[package]
+name = "yewPart"
+version = "0.1.3"
+authors = ["James B <fpga@atlantixeng.com>"]
+edition = "2018"
+license = "LGPL"
+
+#![allow(dead_code)]
+
+[dependencies]
+js-sys = "0.3"
+wasm-bindgen = "0.2.74"
+wasm-bindgen-futures = "0.4.24"
+yew = "0.18.0"
+yewtil = "0.4.0"
